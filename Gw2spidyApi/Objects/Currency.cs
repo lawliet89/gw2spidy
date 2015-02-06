@@ -33,7 +33,7 @@ namespace Gw2spidyApi.Objects
             }
         }
 
-        public static explicit operator Currency(int raw)
+        public static implicit operator Currency(int raw)
         {
             return new Currency {raw = raw};
         }
