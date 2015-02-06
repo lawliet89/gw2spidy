@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gw2spidyApi", "Gw2spidyApi\Gw2spidyApi.csproj", "{2FC82B49-8370-43EA-8BD2-64BE25FB4015}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromotionViability", "PromotionViability\PromotionViability.csproj", "{20D085E3-B2CB-43B4-93A6-E9AF3011350C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FC82B49-8370-43EA-8BD2-64BE25FB4015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC82B49-8370-43EA-8BD2-64BE25FB4015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC82B49-8370-43EA-8BD2-64BE25FB4015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC82B49-8370-43EA-8BD2-64BE25FB4015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20D085E3-B2CB-43B4-93A6-E9AF3011350C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20D085E3-B2CB-43B4-93A6-E9AF3011350C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20D085E3-B2CB-43B4-93A6-E9AF3011350C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20D085E3-B2CB-43B4-93A6-E9AF3011350C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

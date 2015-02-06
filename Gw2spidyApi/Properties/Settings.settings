@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Gw2spidyApi.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BaseUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://www.gw2spidy.com</Value>
+    </Setting>
+    <Setting Name="BasePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/api/{0}/{1}</Value>
+    </Setting>
+    <Setting Name="ApiVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">v0.9</Value>
+    </Setting>
+    <Setting Name="Format" Type="System.String" Scope="User">
+      <Value Profile="(Default)">json</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
