@@ -47,6 +47,7 @@
     <Compile Include="Gw2Spidy.cs" />
     <Compile Include="Network\HttpRequest.cs" />
     <Compile Include="Network\IHttpRequest.cs" />
+    <Compile Include="Objects\Currency.cs" />
     <Compile Include="Objects\Gw2Object.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Wrapper\IWrapper.cs" />
