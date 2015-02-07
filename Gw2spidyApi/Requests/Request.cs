@@ -4,6 +4,7 @@ using System.Web.Script.Serialization;
 using Gw2spidyApi.Extensions;
 using Gw2spidyApi.Network;
 using Gw2spidyApi.Objects.Wrapper;
+using Gw2spidyApi.Objects.Converter;
 
 namespace Gw2spidyApi.Requests
 {
@@ -34,6 +35,7 @@ namespace Gw2spidyApi.Requests
         {
             HttpRequest = httpRequest;
             JavaScriptSerializer = new JavaScriptSerializer();
+            JavaScriptSerializer.RegisterConverters(new ObjectConverter().Yield());
         }
 
         private Task<string> GetJson()

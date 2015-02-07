@@ -1,4 +1,6 @@
-﻿namespace Gw2spidyApi.Objects
+﻿using System.Text;
+
+namespace Gw2spidyApi.Objects
 {
     public class Currency : Gw2Object
     {
@@ -34,6 +36,21 @@
                 if (raw < 100) return raw;
                 return raw - Silver*100 - Gold*10000;
             }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            if (Gold > 0)
+            {
+                sb.Append(Gold).Append("G ");
+            }
+            if (Silver > 0)
+            {
+                sb.Append(Silver).Append("S ");
+            }
+            sb.Append(Copper).Append("C");
+            return sb.ToString();
         }
     }
 }
