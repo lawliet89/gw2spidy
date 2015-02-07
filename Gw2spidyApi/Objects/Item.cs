@@ -13,6 +13,7 @@ namespace Gw2spidyApi.Objects
         public string Img { get; set; }
         public int TypeId { get; set; }
         public int SubTypeId { get; set; }
+
         [DateTimeUtcProvider]
         public DateTime PriceLastChanged { get; set; }
         public Currency MaxOfferUnitPrice { get; set; }

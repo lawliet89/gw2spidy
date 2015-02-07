@@ -35,6 +35,7 @@ namespace Gw2spidyApi.Objects.Converter
                     if (attribute != null)
                     {
                         provider = attribute.Provider;
+                        value = attribute.Preprocess(value);
                     }
                     valueToSet = Convert.ChangeType(value, destinationType, provider);
                 }
