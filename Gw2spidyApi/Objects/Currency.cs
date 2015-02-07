@@ -1,10 +1,13 @@
-﻿using System;
-
-namespace Gw2spidyApi.Objects
+﻿namespace Gw2spidyApi.Objects
 {
     public class Currency : Gw2Object
     {
         private int raw;
+
+        public Currency(int raw)
+        {
+            this.raw = raw;
+        }
 
         public int Gold
         {
@@ -31,11 +34,6 @@ namespace Gw2spidyApi.Objects
                 if (raw < 100) return raw;
                 return raw - Silver*100 - Gold*10000;
             }
-        }
-
-        public static implicit operator Currency(int raw)
-        {
-            return new Currency {raw = raw};
         }
     }
 }

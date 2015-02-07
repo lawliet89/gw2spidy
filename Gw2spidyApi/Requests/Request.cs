@@ -47,7 +47,7 @@ namespace Gw2spidyApi.Requests
                 {
                     if (task.IsCompleted)
                     {
-                        var wrapped = JavaScriptSerializer.Deserialize <TWrapper> (task.Result);
+                        var wrapped = JavaScriptSerializer.Deserialize<TWrapper> (task.Result);
                         Result = wrapped.Unwrap();
                     }
                     else if (task.IsCanceled)
