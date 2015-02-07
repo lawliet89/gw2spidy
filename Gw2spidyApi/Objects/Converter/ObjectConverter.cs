@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Script.Serialization;
+using Gw2spidyApi.Extensions;
 
 namespace Gw2spidyApi.Objects.Converter
 {
@@ -14,31 +15,39 @@ namespace Gw2spidyApi.Objects.Converter
             var result = Activator.CreateInstance(type);
             foreach (var property in type.GetProperties())
             {
-                var value = dictionary[property.Name];
+                var value = dictionary[property.Name.ToSnakeCase()];
                 var destinationType = property.PropertyType;
                 var sourceType = value.GetType();
 
+                object valueToSet;
                 if (destinationType == sourceType)
                 {
-                    property.SetValue(result, value, null);
+                    valueToSet = value;
                 }
-                else if (IsDictionary(sourceType))
+                // Check we can use Convert
+                else if (sourceType.GetInterfaces().Contains(typeof (IConvertible))
+                         && destinationType.IsValueType)
                 {
-                    property.SetValue(result,
-                        Deserialize((IDictionary<string, object>) value, destinationType, serializer),
-                        null);
+                    // Get FormatProvider, if it exists
+                    var attribute = property.GetCustomAttributes(typeof(FormatProviderAttribute), true)
+                        .SingleOrDefault() as FormatProviderAttribute;
+                    IFormatProvider provider = null;
+                    if (attribute != null)
+                    {
+                        provider = attribute.Provider;
+                    }
+                    valueToSet = Convert.ChangeType(value, destinationType, provider);
                 }
                 else if (destinationType.GetConstructor(new[] {sourceType}) != null)
                 {
                     var constructor = destinationType.GetConstructor(new[] {sourceType});
-                    property.SetValue(result,
-                        constructor.Invoke(new object[] {value}),
-                        null);
+                    valueToSet = constructor.Invoke(new object[] {value});
                 }
                 else
                 {
                     throw new InvalidOperationException("Unable to bind property");
                 }
+                property.SetValue(result, valueToSet, null);
             }
 
             return result;
@@ -62,7 +71,7 @@ namespace Gw2spidyApi.Objects.Converter
         private bool IsDictionary(Type type)
         {
             return type.IsGenericType
-                   && type.GetGenericTypeDefinition() == typeof (Dictionary<,>);
+                   && type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
         }
     }
 }

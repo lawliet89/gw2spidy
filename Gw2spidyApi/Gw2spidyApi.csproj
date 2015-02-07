@@ -48,6 +48,8 @@
     <Compile Include="Gw2Spidy.cs" />
     <Compile Include="Network\HttpRequest.cs" />
     <Compile Include="Network\IHttpRequest.cs" />
+    <Compile Include="Objects\Converter\DateTimeUTCProviderAttribute.cs" />
+    <Compile Include="Objects\Converter\FormatProviderAttribute.cs" />
     <Compile Include="Objects\Converter\ObjectConverter.cs" />
     <Compile Include="Objects\Converter\ObjectConverterAttribute.cs" />
     <Compile Include="Objects\Currency.cs" />
