@@ -16,6 +16,7 @@ namespace Gw2spidyApi.Requests
         where TWrapper : IWrapper<TObject>
     {
         public abstract Uri RequestUri { get; }
+        public TWrapper Wrapper { get; protected set; }
         public TObject Result { get; protected set; }
         
         protected IHttpRequest HttpRequest;
@@ -30,6 +31,11 @@ namespace Gw2spidyApi.Requests
         {
             get { return Settings.BaseUrlBuilder; }
         }
+
+        protected Request() : this(new HttpRequest())
+        {
+            
+        } 
 
         protected Request(IHttpRequest httpRequest)
         {
@@ -49,8 +55,8 @@ namespace Gw2spidyApi.Requests
                 {
                     if (task.IsCompleted)
                     {
-                        var wrapped = JavaScriptSerializer.Deserialize<TWrapper> (task.Result);
-                        Result = wrapped.Unwrap();
+                        Wrapper = JavaScriptSerializer.Deserialize<TWrapper> (task.Result);
+                        Result = Wrapper.Unwrap();
                     }
                     else if (task.IsCanceled)
                     {

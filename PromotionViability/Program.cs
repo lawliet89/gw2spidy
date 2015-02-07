@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Gw2spidyApi.Requests;
 namespace PromotionViability
 {
@@ -9,7 +10,11 @@ namespace PromotionViability
             var request = new ItemRequest(24295);
             Console.WriteLine(request.Get().ToString());
 
-            // Keep the console window open in debug mode.
+            //var allItems = String.Join("-----\n", new ItemsRequest().Get()
+            //    .Select(i => i.ToString()));
+            //Console.WriteLine(allItems);
+
+            // Keep the console window open in debug modde.
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }

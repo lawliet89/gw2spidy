@@ -59,8 +59,8 @@
     <Compile Include="Objects\Gw2Object.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Wrapper\IWrapper.cs" />
-    <Compile Include="Objects\Wrapper\Results.cs" />
-    <Compile Include="Objects\Wrapper\Result.cs" />
+    <Compile Include="Objects\Wrapper\ResultsWrapper.cs" />
+    <Compile Include="Objects\Wrapper\ResultWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -68,6 +68,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Requests\ItemRequest.cs" />
+    <Compile Include="Requests\ItemsRequest.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />

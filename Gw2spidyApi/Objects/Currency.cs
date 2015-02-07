@@ -4,7 +4,7 @@ namespace Gw2spidyApi.Objects
 {
     public class Currency : Gw2Object
     {
-        private int raw;
+        private readonly int raw;
 
         public Currency(int raw)
         {
@@ -43,13 +43,13 @@ namespace Gw2spidyApi.Objects
             var sb = new StringBuilder();
             if (Gold > 0)
             {
-                sb.Append(Gold).Append("G ");
+                sb.Append(Gold).Append("g ");
             }
             if (Silver > 0)
             {
-                sb.Append(Silver).Append("S ");
+                sb.Append(Silver).Append("s ");
             }
-            sb.Append(Copper).Append("C");
+            sb.Append(Copper).Append("c");
             return sb.ToString();
         }
     }

@@ -5,15 +5,12 @@ using Gw2spidyApi.Objects.Wrapper;
 
 namespace Gw2spidyApi.Requests
 {
-    public class ItemRequest : Request<Item, Result<Item>>
+    public class ItemRequest : Request<Item, ResultWrapper<Item>>
     {
         private string Path = "/item/{0}";
         public int ItemId { get; private set; }
 
-        public ItemRequest(int itemId) : this(itemId, new HttpRequest())
-        {
-        }
-        public ItemRequest(int itemId, IHttpRequest httpRequest) : base(httpRequest)
+        public ItemRequest(int itemId) : base()
         {
             ItemId = itemId;
         }
