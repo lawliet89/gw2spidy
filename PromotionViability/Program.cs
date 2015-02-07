@@ -1,4 +1,5 @@
-﻿using Gw2spidyApi.Requests;
+﻿using System;
+using Gw2spidyApi.Requests;
 namespace PromotionViability
 {
     class Program
@@ -6,7 +7,11 @@ namespace PromotionViability
         static void Main(string[] args)
         {
             var request = new ItemRequest(24295);
-            System.Console.WriteLine(request.Get().ToString());
+            Console.WriteLine(request.Get().ToString());
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
         }
     }
 }
