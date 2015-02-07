@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Gw2spidyApi.Extensions;
@@ -17,7 +18,7 @@ namespace Gw2spidyApi.Requests
     {
         public abstract Uri RequestUri { get; }
         public TWrapper Wrapper { get; protected set; }
-        public TObject Result { get; protected set; }
+        public IEnumerable<TObject> Result { get; protected set; }
         
         protected IHttpRequest HttpRequest;
         protected JavaScriptSerializer JavaScriptSerializer;
@@ -69,7 +70,7 @@ namespace Gw2spidyApi.Requests
                 });
         }
 
-        public TObject Get()
+        public IEnumerable<TObject> Get()
         {
             try
             {

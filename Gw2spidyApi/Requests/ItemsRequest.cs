@@ -1,11 +1,10 @@
 ﻿using System;
-using Gw2spidyApi.Network;
 using Gw2spidyApi.Objects;
 using Gw2spidyApi.Objects.Wrapper;
 
 namespace Gw2spidyApi.Requests
 {
-    public class ItemsRequest : Request<Item[], ResultsWrapper<Item[]>>
+    public class ItemsRequest : Request<Item, ResultsWrapper<Item>>
     {
         private const string Path = "/items/{0}";
         private const string All = "all";

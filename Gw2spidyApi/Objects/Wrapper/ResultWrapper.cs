@@ -1,4 +1,5 @@
-﻿using Gw2spidyApi.Objects.Converter;
+﻿using System.Collections.Generic;
+using Gw2spidyApi.Extensions;
 
 namespace Gw2spidyApi.Objects.Wrapper
 {
@@ -9,9 +10,9 @@ namespace Gw2spidyApi.Objects.Wrapper
     {
         public T Result { get; set; }
 
-        public T Unwrap()
+        public IEnumerable<T> Unwrap()
         {
-            return Result;
+            return Result.Yield();
         }
     }
 }

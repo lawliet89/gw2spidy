@@ -1,7 +1,9 @@
-﻿namespace Gw2spidyApi.Objects.Wrapper
+﻿using System.Collections.Generic;
+
+namespace Gw2spidyApi.Objects.Wrapper
 {
     public interface IWrapper<out TObject>
     {
-        TObject Unwrap();
+        IEnumerable<TObject> Unwrap();
     }
 }

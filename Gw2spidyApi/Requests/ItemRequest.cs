@@ -1,5 +1,4 @@
 ﻿using System;
-using Gw2spidyApi.Network;
 using Gw2spidyApi.Objects;
 using Gw2spidyApi.Objects.Wrapper;
 
@@ -10,7 +9,7 @@ namespace Gw2spidyApi.Requests
         private string Path = "/item/{0}";
         public int ItemId { get; private set; }
 
-        public ItemRequest(int itemId) : base()
+        public ItemRequest(int itemId)
         {
             ItemId = itemId;
         }

@@ -4,19 +4,19 @@ namespace Gw2spidyApi.Objects
 {
     public class Currency : Gw2Object
     {
-        private readonly int raw;
+        public int Raw { get; private set; }
 
         public Currency(int raw)
         {
-            this.raw = raw;
+            Raw = raw;
         }
 
         public int Gold
         {
             get
             {
-                if (raw < 10000) return 0;
-                return raw/10000;
+                if (Raw < 10000) return 0;
+                return Raw / 10000;
             }
         }
 
@@ -24,8 +24,8 @@ namespace Gw2spidyApi.Objects
         {
             get
             {
-                if (raw < 100) return 0;
-                return raw/100 - Gold*100;
+                if (Raw < 100) return 0;
+                return Raw / 100 - Gold * 100;
             }
         }
 
@@ -33,8 +33,8 @@ namespace Gw2spidyApi.Objects
         {
             get
             {
-                if (raw < 100) return raw;
-                return raw - Silver*100 - Gold*10000;
+                if (Raw < 100) return Raw;
+                return Raw - Silver * 100 - Gold * 10000;
             }
         }
 
