@@ -7,12 +7,11 @@ namespace PromotionViability
     {
         static void Main(string[] args)
         {
+            var allItems = new AllItemsRequest();
+            allItems.Get();
+
             var request = new ItemRequest(24295);
             Console.WriteLine(request.Get().Single().ToString());
-
-            var allItems = String.Join("-----\n", new ItemsRequest().Get()
-                .Select(i => i.ToString()));
-            Console.WriteLine(allItems);
 
             // Keep the console window open in debug modde.
             Console.WriteLine("Press any key to exit.");

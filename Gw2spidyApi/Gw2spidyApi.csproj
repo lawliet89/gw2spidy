@@ -68,7 +68,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Requests\ItemRequest.cs" />
-    <Compile Include="Requests\ItemsRequest.cs" />
+    <Compile Include="Requests\AllItemsRequest.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />

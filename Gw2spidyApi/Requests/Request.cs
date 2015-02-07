@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Gw2spidyApi.Extensions;
 using Gw2spidyApi.Network;
 using Gw2spidyApi.Objects.Wrapper;
 using Gw2spidyApi.Objects.Converter;
+using TaskExtensions = Gw2spidyApi.Extensions.TaskExtensions;
 
 namespace Gw2spidyApi.Requests
 {
@@ -18,10 +21,16 @@ namespace Gw2spidyApi.Requests
     {
         public abstract Uri RequestUri { get; }
         public TWrapper Wrapper { get; protected set; }
-        public IEnumerable<TObject> Result { get; protected set; }
-        
+
+        public IEnumerable<TObject> Result
+        {
+            get { return Wrapper.Unwrap(); }
+        }
+
         protected IHttpRequest HttpRequest;
         protected JavaScriptSerializer JavaScriptSerializer;
+
+        public static List<CacheObject<TWrapper>> Cache = new List<CacheObject<TWrapper>>();
 
         protected Uri ApiURl
         {
@@ -50,14 +59,21 @@ namespace Gw2spidyApi.Requests
             return HttpRequest.MakeJsonRequest(RequestUri);
         }
 
-        public virtual Task Send()
+        /// <summary>
+        /// Use to send request. Override to provide other ways to retrieve data
+        /// </summary>
+        /// <returns></returns>
+        public virtual Task Send(bool refresh = false)
         {
-            return GetJson().Then(task =>
+            var cache = FindInCache();
+            if (cache == null)
+            {
+                return GetJson().Then(task =>
                 {
                     if (task.IsCompleted)
                     {
-                        Wrapper = JavaScriptSerializer.Deserialize<TWrapper> (task.Result);
-                        Result = Wrapper.Unwrap();
+                        Wrapper = JavaScriptSerializer.Deserialize<TWrapper>(task.Result);
+                        CacheWrapper(Wrapper);
                     }
                     else if (task.IsCanceled)
                     {
@@ -68,13 +84,20 @@ namespace Gw2spidyApi.Requests
                         throw task.Exception.InnerException;
                     }
                 });
+            }
+            Wrapper = cache.Result;
+            return TaskExtensions.EmptyTask();
         }
 
-        public IEnumerable<TObject> Get()
+        /// <summary>
+        /// Shortcut method to send request and wait synchronously 
+        /// </summary>
+        /// <returns>The object requested, in an IEnumerable</returns>
+        public IEnumerable<TObject> Get(bool refresh = false)
         {
             try
             {
-                Send().Wait();
+                Send(refresh).Wait();
                 return Result;;
             }
             catch (AggregateException e)
@@ -82,5 +105,63 @@ namespace Gw2spidyApi.Requests
                 throw e.InnerException;
             }
         }
+
+        protected IEnumerable<PropertyInfo> CacheParameters
+        {
+            get
+            {
+                return GetType().GetProperties()
+                    .Where(p => p.GetCustomAttributes(typeof(CachePrameterAttribute), true).Length > 0);
+            }
+        }
+
+        public virtual CacheObject<TWrapper> FindInCache()
+        {
+            return !CacheParameters.Any() ? null : FindInCache(GetCacheProperties());
+        }
+
+        public virtual CacheObject<TWrapper> FindInCache(IDictionary<string, object> parameters)
+        {
+            return Cache.SingleOrDefault(c => c.Parameters.SequenceEqual(parameters));
+        } 
+
+        protected virtual void CacheWrapper(TWrapper wrapper)
+        {
+            if (!CacheParameters.Any()) return;
+            Cache.Add(MakeCacheWrapper(wrapper));
+        }
+
+        protected CacheObject<TWrapper> MakeCacheWrapper(TWrapper wrapper)
+        {
+            return new CacheObject<TWrapper>()
+            {
+                Result = wrapper,
+                Parameters = GetCacheProperties()
+            };
+        }
+
+        protected IDictionary<string, object> GetCacheProperties()
+        {
+            return CacheParameters
+                .ToDictionary(property => property.Name, property => property.GetValue(this));
+        } 
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    class CachePrameterAttribute : Attribute
+    {
+        
+    }
+
+    public class CacheObject<TWrapper>
+    {
+        public TWrapper Result;
+        public IDictionary<string, object> Parameters;
+        public DateTime Timestamp { private set; get; }
+
+        public CacheObject()
+        {
+            Timestamp = DateTime.Now;
+        } 
     }
 }

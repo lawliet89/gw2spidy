@@ -92,6 +92,13 @@ namespace Gw2spidyApi.Extensions
             thread.Start();
             return completionSource.Task;
         }
+
+        public static Task EmptyTask()
+        {
+            var completionSource = new TaskCompletionSource<Nothing>();
+            completionSource.SetResult(Nothing.AtAll);
+            return completionSource.Task;
+        }
     }
 
     /// <summary>

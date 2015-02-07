@@ -5,7 +5,7 @@ namespace Gw2spidyApi.Objects.Wrapper
     public class ResultsWrapper<T> : IWrapper<T>
     {
         public int Count { get; set; }
-        public IEnumerable<T> Results { get; set; }
+        public List<T> Results { get; set; }
 
         public IEnumerable<T> Unwrap()
         {
