@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Gw2spidyApi.Extensions;
 using Gw2spidyApi.Network;
+using Gw2spidyApi.Objects;
 using Gw2spidyApi.Objects.Wrapper;
 using Gw2spidyApi.Objects.Converter;
 using TaskExtensions = Gw2spidyApi.Extensions.TaskExtensions;
@@ -16,8 +18,10 @@ namespace Gw2spidyApi.Requests
     /// An abstract class that represents a type of API request
     /// </summary>
     /// <typeparam name="TObject">The object to serialise the results to</typeparam>
+    /// <typeparam name="TWrapper">Type of wrapper</typeparam>
     public abstract class Request<TObject, TWrapper>
         where TWrapper : IWrapper<TObject>
+        where TObject : Gw2Object
     {
         public abstract Uri RequestUri { get; }
         public TWrapper Wrapper { get; protected set; }
@@ -30,7 +34,7 @@ namespace Gw2spidyApi.Requests
         protected IHttpRequest HttpRequest;
         protected JavaScriptSerializer JavaScriptSerializer;
 
-        public static List<CacheObject<TWrapper>> Cache = new List<CacheObject<TWrapper>>();
+        public static ConcurrentBag<CacheObject<TWrapper>> Cache = new ConcurrentBag<CacheObject<TWrapper>>();
 
         protected Uri ApiURl
         {
