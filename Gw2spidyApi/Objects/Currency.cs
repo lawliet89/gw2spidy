@@ -52,5 +52,35 @@ namespace Gw2spidyApi.Objects
             sb.Append(Copper).Append("c");
             return sb.ToString();
         }
+
+        public static implicit operator int(Currency obj)
+        {
+            return obj.Raw;
+        }
+
+        public static implicit operator Currency(int raw)
+        {
+            return new Currency(raw);
+        }
+
+        public static Currency operator +(Currency a, Currency b)
+        {
+            return new Currency(a.Raw + b.Raw);
+        }
+
+        public static Currency operator -(Currency a, Currency b)
+        {
+            return new Currency(a.Raw - b.Raw);
+        }
+
+        public static Currency operator *(Currency a, float b)
+        {
+            return new Currency((int) (a.Raw * b));
+        }
+
+        public static Currency operator /(Currency a, float b)
+        {
+            return new Currency((int) (a.Raw / b));
+        }
     }
 }

@@ -7,9 +7,6 @@ namespace PromotionViability
     {
         static void Main(string[] args)
         {
-            var allItems = new AllItemsRequest();
-            allItems.Get();
-
             var request = new ItemRequest(24295);
             Console.WriteLine(request.Get().Single().ToString());
 
