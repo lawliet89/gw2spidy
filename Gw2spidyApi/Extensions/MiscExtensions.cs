@@ -11,6 +11,14 @@ namespace Gw2spidyApi.Extensions
             yield return obj;
         }
 
+        public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+        {
+            foreach (T item in enumeration)
+            {
+                action(item);
+            }
+        }
+
         public static string ToCamelCase(this string str)
         {
             return str.Split(new[] {"_"}, StringSplitOptions.RemoveEmptyEntries)

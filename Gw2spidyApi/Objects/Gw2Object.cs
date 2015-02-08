@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Text;
+using Gw2spidyApi.Objects.Wrapper;
+using Gw2spidyApi.Requests;
 
 namespace Gw2spidyApi.Objects
 {
-    public class Gw2Object
+    public abstract class Gw2Object
     {
         public override string ToString()
         {

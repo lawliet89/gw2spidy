@@ -7,6 +7,7 @@ namespace Gw2spidyApi.Objects.Wrapper
     ///  A single result wrapper over an actual object
     /// </summary>
     public class ResultWrapper<T> : IWrapper<T>
+        where T: Gw2Object
     {
         public T Result { get; set; }
 
