@@ -112,7 +112,7 @@ namespace PromotionViability
 
         private static void Main(string[] args)
         {
-            Console.WriteLine("Request all items data from GW2Spidy (limitation)");
+            Console.WriteLine("Requesting and deserialising all items data from GW2Spidy (limitation)");
             // Get all requests
             var allItems = new AllItemsRequest();
             var loadingTask = allItems.Send();
