@@ -1,9 +1,11 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace Gw2spidyApi.Objects
 {
     public class Currency : Gw2Object
     {
+        public static double SalesTax = 0.15;
         public int Raw { get; private set; }
 
         public Currency(int raw)
@@ -15,7 +17,7 @@ namespace Gw2spidyApi.Objects
         {
             get
             {
-                if (Raw < 10000) return 0;
+                if (Math.Abs(Raw) < 10000) return 0;
                 return Raw / 10000;
             }
         }
@@ -24,7 +26,7 @@ namespace Gw2spidyApi.Objects
         {
             get
             {
-                if (Raw < 100) return 0;
+                if (Math.Abs(Raw) < 100) return 0;
                 return Raw / 100 - Gold * 100;
             }
         }
@@ -33,7 +35,7 @@ namespace Gw2spidyApi.Objects
         {
             get
             {
-                if (Raw < 100) return Raw;
+                if (Math.Abs(Raw) < 100) return Raw;
                 return Raw - Silver * 100 - Gold * 10000;
             }
         }
@@ -41,15 +43,19 @@ namespace Gw2spidyApi.Objects
         public override string ToString()
         {
             var sb = new StringBuilder();
-            if (Gold > 0)
+            if (Raw < 0)
             {
-                sb.Append(Gold).Append("g ");
+                sb.Append("-");
             }
-            if (Silver > 0)
+            if (Math.Abs(Gold) > 0)
             {
-                sb.Append(Silver).Append("s ");
+                sb.Append(Math.Abs(Gold)).Append("g ");
             }
-            sb.Append(Copper).Append("c");
+            if (Math.Abs(Silver) > 0)
+            {
+                sb.Append(Math.Abs(Silver)).Append("s ");
+            }
+            sb.Append(Math.Abs(Copper)).Append("c");
             return sb.ToString();
         }
 
@@ -73,14 +79,29 @@ namespace Gw2spidyApi.Objects
             return new Currency(a.Raw - b.Raw);
         }
 
-        public static Currency operator *(Currency a, float b)
+        public static Currency operator *(Currency a, double b)
         {
             return new Currency((int) (a.Raw * b));
         }
 
-        public static Currency operator /(Currency a, float b)
+        public static Currency operator /(Currency a, double b)
         {
             return new Currency((int) (a.Raw / b));
+        }
+
+        public static bool operator <(Currency a, Currency b)
+        {
+            return a.Raw < b.Raw;
+        }
+
+        public static bool operator >(Currency a, Currency b)
+        {
+            return a.Raw > b.Raw;
+        }
+
+        public static Currency ProfitSellingAt(Currency price)
+        {
+            return price*(1.0 - SalesTax);
         }
     }
 }
